@@ -12,8 +12,6 @@
       --text: #f8fafc;
       --muted: #94a3b8;
       --line: rgba(255, 255, 255, 0.14);
-      --blue: #60a5fa;
-      --violet: #a78bfa;
       --green: #34d399;
     }
 
@@ -24,14 +22,18 @@
     html {
       min-height: 100%;
       background: #020617;
+      overflow-x: hidden;
     }
 
     body {
       margin: 0;
+      width: 100%;
       min-height: 100vh;
       min-height: 100svh;
-      display: grid;
-      place-items: center;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding:
         max(20px, env(safe-area-inset-top))
         max(20px, env(safe-area-inset-right))
@@ -40,21 +42,20 @@
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 50% 35%, rgba(96, 165, 250, 0.18), transparent 28%),
+        radial-gradient(circle at 50% 34%, rgba(96, 165, 250, 0.18), transparent 28%),
         radial-gradient(circle at 30% 80%, rgba(52, 211, 153, 0.12), transparent 26%),
         radial-gradient(circle at 78% 72%, rgba(167, 139, 250, 0.15), transparent 28%),
         linear-gradient(145deg, #020617 0%, #0f172a 48%, #030712 100%);
-      overflow: hidden;
     }
 
     .stars {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.55;
+      opacity: 0.45;
       background-image:
-        radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,.45) 1px, transparent 1px);
+        radial-gradient(circle, rgba(255,255,255,.85) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,.38) 1px, transparent 1px);
       background-size: 120px 120px, 190px 190px;
       background-position: 12px 24px, 64px 92px;
       mask-image: radial-gradient(circle at center, black, transparent 78%);
@@ -62,8 +63,11 @@
 
     .ring {
       position: fixed;
-      width: min(76vw, 720px);
+      left: 50%;
+      top: 50%;
+      width: min(78vw, 720px);
       aspect-ratio: 1;
+      transform: translate(-50%, -50%);
       border-radius: 50%;
       border: 1px solid rgba(255,255,255,.08);
       box-shadow:
@@ -89,15 +93,17 @@
     main {
       position: relative;
       z-index: 1;
+      width: min(100%, 900px);
+      padding: 44px 22px;
       text-align: center;
-      width: min(94vw, 900px);
-      padding: 48px 24px;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
+      max-width: 100%;
       margin-bottom: 26px;
       padding: 10px 14px;
       border: 1px solid var(--line);
@@ -109,6 +115,7 @@
       font-size: 13px;
       letter-spacing: .04em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .dot {
@@ -117,22 +124,26 @@
       border-radius: 50%;
       background: var(--green);
       box-shadow: 0 0 18px var(--green);
+      flex: 0 0 auto;
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(64px, 15vw, 172px);
-      line-height: .82;
+      margin: 0 auto;
+      max-width: 100%;
+      font-size: clamp(64px, 14vw, 172px);
+      line-height: .84;
       letter-spacing: -0.09em;
       font-weight: 900;
       text-shadow: 0 0 60px rgba(96,165,250,.18);
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
     .subtitle {
       margin: 24px auto 0;
       color: #dbeafe;
       font-size: clamp(22px, 4vw, 42px);
-      line-height: 1.1;
+      line-height: 1.12;
       font-weight: 650;
       letter-spacing: -0.045em;
     }
@@ -159,32 +170,107 @@
       letter-spacing: .03em;
     }
 
-    @media (max-width: 520px) {
+    @media (max-width: 600px) {
+      body {
+        align-items: center;
+        justify-content: center;
+        padding:
+          max(18px, env(safe-area-inset-top))
+          max(14px, env(safe-area-inset-right))
+          max(18px, env(safe-area-inset-bottom))
+          max(14px, env(safe-area-inset-left));
+      }
+
       main {
-        padding: 30px 8px;
-      }
-
-      .eyebrow {
-        margin-bottom: 22px;
-        font-size: 12px;
-      }
-
-      h1 {
-        font-size: clamp(58px, 20vw, 88px);
-        letter-spacing: -0.08em;
-      }
-
-      .subtitle {
-        margin-top: 20px;
-        font-size: clamp(22px, 7vw, 30px);
-      }
-
-      .caption {
-        font-size: 15px;
+        width: 100%;
+        padding: 28px 0;
       }
 
       .ring {
         width: 118vw;
+        opacity: 0.72;
+      }
+
+      .stars {
+        opacity: 0.36;
+      }
+
+      .eyebrow {
+        margin-bottom: 22px;
+        padding: 9px 12px;
+        font-size: 11px;
+        letter-spacing: .035em;
+      }
+
+      h1 {
+        font-size: clamp(58px, 19vw, 88px);
+        line-height: .9;
+        letter-spacing: -0.075em;
+      }
+
+      .subtitle {
+        margin-top: 20px;
+        font-size: clamp(23px, 7vw, 31px);
+        line-height: 1.18;
+        letter-spacing: -0.035em;
+      }
+
+      .caption {
+        width: min(100%, 330px);
+        margin-top: 18px;
+        font-size: 15px;
+        line-height: 1.62;
+      }
+
+      .line {
+        margin-top: 28px;
+        width: 190px;
+      }
+
+      footer {
+        margin-top: 20px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      h1 {
+        font-size: clamp(54px, 18vw, 74px);
+      }
+
+      .subtitle {
+        font-size: clamp(21px, 6.5vw, 27px);
+      }
+
+      .caption {
+        max-width: 300px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-height: 680px) and (max-width: 600px) {
+      main {
+        padding: 18px 0;
+      }
+
+      .eyebrow {
+        margin-bottom: 16px;
+      }
+
+      .subtitle {
+        margin-top: 16px;
+      }
+
+      .caption {
+        margin-top: 14px;
+      }
+
+      .line {
+        margin-top: 20px;
+      }
+
+      footer {
+        margin-top: 16px;
       }
     }
   </style>
